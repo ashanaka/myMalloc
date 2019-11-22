@@ -47,6 +47,7 @@ void* myMalloc(size_t sizeOfBytes){
 	
 	void* memoryAddress;
 	
+	//check whether the memory is initiated or not
 	if(!(freeBlock->sizeOfChunk)){
 		initiate();
 		printf("Memory Initiated!\n");
@@ -80,9 +81,32 @@ void* myMalloc(size_t sizeOfBytes){
 	}
 }
 
+//to make free the allocated memory chunk when it's not needed
+void freeChunk(void* blockAddress){
+	
+	struct metaData* thisBlock;
+	
+	if((void*)memory <= blockAddress && blockAddress <= ((void*)memory + 25000)){
+		
+		thisBlock = blockAddress;
+		thisBlock--;
+		thisBlock->isFree = 1;
+		printf("The chunk was free!\n");
+	}else{
+		
+		printf("The given address is not in virtual RAM!\n");
+	}
+}
+
 
 //For testing purposes only
 int main(){
 	
+	int* p = (int*)myMalloc(sizeof(int));
+	int a = 5;
+//	p = &a;
+	printf("%d\n", a);
+	freeChunk(p);
+	printf("%d\n", a);
 	return 0;
 }
