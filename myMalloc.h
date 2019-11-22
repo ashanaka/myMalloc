@@ -100,33 +100,33 @@ void freeChunk(void* blockAddress){
 
 
 //For testing purposes only
-int main(){
-	
-	struct testType{
-		int a;
-		int b;
-	};
-	
-	struct testType* p = (struct testType*)myMalloc(sizeof(struct testType));
-	
-	p->a = 3;
-	p->b = 5;
-	
-	struct testType* p1 = (struct testType*)myMalloc(sizeof(struct testType));
-	
-	p1->a = 31;
-	p1->b = 51;
-	
-	struct testType* p2 = (struct testType*)myMalloc(sizeof(struct testType));
-	
-	p->a = 32;
-	p->b = 52;
-	
-	freeChunk(p1);
-	
-	struct testType* p3 = (struct testType*)myMalloc(sizeof(struct testType));
-	
-	p->a = 33;
-	p->b = 53;
-	return 0;
-}
+//int main(){
+//	
+//	struct testType{
+//		int a;
+//		int b;
+//	};
+//	
+//	struct testType* p = (struct testType*)myMalloc(sizeof(struct testType));
+//	
+//	p->a = 3;
+//	p->b = 5;
+//	
+//	struct testType* p1 = (struct testType*)myMalloc(sizeof(struct testType));
+//	
+//	p1->a = 31;
+//	p1->b = 51;
+//	
+//	struct testType* p2 = (struct testType*)myMalloc(sizeof(struct testType));
+//	
+//	p->a = 32;
+//	p->b = 52;
+//	
+//	freeChunk(p1);
+//	
+//	struct testType* p3 = (struct testType*)myMalloc(sizeof(struct testType));
+//	
+//	p->a = 33;
+//	p->b = 53;
+//	return 0;
+//}
