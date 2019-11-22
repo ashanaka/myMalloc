@@ -11,7 +11,7 @@ struct metaData{
 };
 
 
-//Creating the 
+//Creating the pointer variable to get free memory blocks
 struct metaData* freeBlock = (void*)memory;
 
 //Initiate the first metaData block
