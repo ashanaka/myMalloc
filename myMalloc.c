@@ -67,22 +67,22 @@ void* myMalloc(size_t sizeOfBytes){
 		thisBlock->isFree = 0;
 		printf("Allocated the absolute fitting chunk!\n");
 		return thisBlock;
-	}else if(thisBlock->sizeOfChunk > (sizeOfBytes + sizeof(struct metaData))){
+	}else if(thisBlock->sizeOfChunk > (sizeOfBytes + sizeof(struct metaData))){	//When the selected meta-data block has more than required space
 		
 		split(thisBlock, sizeOfBytes);
+		memoryAddress = ++thisBlock;
+		printf("The chunk was allocated by splitting an existing chunk!\n");
+		return memoryAddress;
+	}else{																		//when the memory has no enough space
+		memoryAddress = NULL;
+		printf("No enough space to allocate memory!\n");
+		return memoryAddress;
 	}
 }
 
 
 //For testing purposes only
 int main(){
-	
-	struct metaData *block = (void*)memory;
-	block->isFree = 1;
-	block->next = NULL;
-	block->sizeOfChunk = sizeof(struct metaData);
-	
-	printf("%d", (block->sizeOfChunk));
 	
 	return 0;
 }
