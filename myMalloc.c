@@ -7,7 +7,7 @@ char memory[25000];
 struct metaData{
 	size_t sizeOfChunk;
 	int isFree;
-	struct block *next;
+	struct metaData *next;
 };
 
 
@@ -67,7 +67,7 @@ void* myMalloc(size_t sizeOfBytes){
 		memoryAddress = ++thisBlock;
 		thisBlock->isFree = 0;
 		printf("Allocated the absolute fitting chunk!\n");
-		return thisBlock;
+		return memoryAddress;
 	}else if(thisBlock->sizeOfChunk > (sizeOfBytes + sizeof(struct metaData))){	//When the selected meta-data block has more than required space
 		
 		split(thisBlock, sizeOfBytes);
@@ -98,35 +98,3 @@ void freeChunk(void* blockAddress){
 	}
 }
 
-
-//For testing purposes only
-int main(){
-	
-	struct testType{
-		int a;
-		int b;
-	};
-	
-	struct testType* p = (struct testType*)myMalloc(sizeof(struct testType));
-	
-	p->a = 3;
-	p->b = 5;
-	
-	struct testType* p1 = (struct testType*)myMalloc(sizeof(struct testType));
-	
-	p1->a = 31;
-	p1->b = 51;
-	
-	struct testType* p2 = (struct testType*)myMalloc(sizeof(struct testType));
-	
-	p->a = 32;
-	p->b = 52;
-	
-	freeChunk(p1);
-	
-	struct testType* p3 = (struct testType*)myMalloc(sizeof(struct testType));
-	
-	p->a = 33;
-	p->b = 53;
-	return 0;
-}

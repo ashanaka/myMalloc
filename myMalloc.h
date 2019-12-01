@@ -7,7 +7,7 @@ char memory[25000];
 struct metaData{
 	size_t sizeOfChunk;
 	int isFree;
-	struct block *next;
+	struct metaData *next;
 };
 
 
@@ -50,7 +50,7 @@ void* myMalloc(size_t sizeOfBytes){
 	//check whether the memory is initiated or not
 	if(!(freeBlock->sizeOfChunk)){
 		initiate();
-		printf("Memory Initiated!\n");
+//		printf("Memory Initiated!\n");
 	}	
 	
 	thisBlock = freeBlock;
@@ -59,24 +59,24 @@ void* myMalloc(size_t sizeOfBytes){
 		
 		prevBlock = thisBlock;
 		thisBlock = thisBlock->next;
-		printf("One block is checked!\n");
+//		printf("One block is checked!\n");
 	}
 	
 	if(thisBlock->sizeOfChunk == sizeOfBytes){	//when the required size is absolutely fit into the selected block;
 		
 		memoryAddress = ++thisBlock;
 		thisBlock->isFree = 0;
-		printf("Allocated the absolute fitting chunk!\n");
-		return thisBlock;
+//		printf("Allocated the absolute fitting chunk!\n");
+		return memoryAddress;
 	}else if(thisBlock->sizeOfChunk > (sizeOfBytes + sizeof(struct metaData))){	//When the selected meta-data block has more than required space
 		
 		split(thisBlock, sizeOfBytes);
 		memoryAddress = ++thisBlock;
-		printf("The chunk was allocated by splitting an existing chunk!\n");
+//		printf("The chunk was allocated by splitting an existing chunk!\n");
 		return memoryAddress;
 	}else{																		//when the memory has no enough space
 		memoryAddress = NULL;
-		printf("No enough space to allocate memory!\n");
+//		printf("No enough space to allocate memory!\n");
 		return memoryAddress;
 	}
 }
@@ -91,7 +91,7 @@ void freeChunk(void* blockAddress){
 		thisBlock = blockAddress;
 		thisBlock--;
 		thisBlock->isFree = 1;
-		printf("The chunk was free!\n");
+//		printf("The chunk was free!\n");
 	}else{
 		
 		printf("The given address is not in virtual RAM!\n");
